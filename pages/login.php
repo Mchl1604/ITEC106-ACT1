@@ -1,3 +1,6 @@
+<?php
+include ("../backend/processLogin.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,6 +50,9 @@
     .form-control:focus{ 
      background-color: #B8FFB8;
     }
+    .form-control:focus + label{ 
+      color: #00754A;
+    }
   </style>
 </head>
 
@@ -57,13 +63,13 @@
       <img src="../img/logo.png" alt="" class="img-fluid" style="max-height: 60px; max-width: 40px;">
       </div>
       <h1 class="text-center">Log in</h1>
-      <form action="home.php">
+      <form method="POST">
       <div class="form-floating mb-3">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" required>
+        <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" required>
         <label for="floatingInput">Email Address</label>
       </div>
       <div class="form-floating mb-3">
-        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" required>
+        <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
         <label for="floatingPassword">Password</label>
       </div>
        <div class="mb-2 form-check">
@@ -71,8 +77,9 @@
     <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
   </div>
   <p>Does not have an account? <a href="register.php">Sign up</a></p>
+  <p class="text-danger"><?php echo $message;?></p>
   <div class="d-flex justify-content-end">
-    <button type="submit" class="btn">Log in</button>
+    <button type="submit" name="login" class="btn">Log in</button>
     
   </div>
     </form>
@@ -83,26 +90,6 @@
 
   
   <?php include("../includes/jsBootstrap.php"); ?>
-  <script>
-    (() => {
-  'use strict'
-
-  // Fetch all the forms we want to apply custom Bootstrap validation styles to
-  const forms = document.querySelectorAll('.needs-validation')
-
-  // Loop over them and prevent submission
-  Array.from(forms).forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.checkValidity()) {
-        event.preventDefault()
-        event.stopPropagation()
-      }
-
-      form.classList.add('was-validated')
-    }, false)
-  })
-})()
-  </script>
 </body>
 
 </html>
