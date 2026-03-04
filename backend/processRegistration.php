@@ -16,13 +16,12 @@ if(isset($_POST['register'])){
 
   }
   else{
-      if($password === $confirmPassword){
+    if($password === $confirmPassword){
       $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
       $query = "INSERT INTO tbl_users(fullname, email, password) VALUES ('$fullName', '$email', '$hashedPassword')";
 
       if($conn ->query($query)){
-        $message = "Registration Successful!";
         header("Location: ../pages/login.php");
       }
       else{

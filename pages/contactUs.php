@@ -1,3 +1,6 @@
+<?php 
+include('../backend/processContactUs.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,21 +29,27 @@
         <div class="card h-100 shadow-sm">
           <div class="card-body p-4">
             <h5 class="card-title mb-4" style="color: #00754A;">Send Us a Message</h5>
-            <form>
+            <form method="POST">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="name" placeholder="Name A. Example" required>
+                <input type="text" class="form-control" name="name" placeholder="Name A. Example" required>
                 <label for="name">Name</label>
               </div>
               <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                <input type="email" class="form-control" name="email" placeholder="name@example.com" required>
                 <label for="email">Email address</label>
               </div>
               <div class="form-floating mb-4">
-                <textarea class="form-control" placeholder="Leave a comment here" id="message" style="height: 120px" required></textarea>
+                <textarea class="form-control" placeholder="Leave a comment here" name="message" style="height: 120px" required></textarea>
                 <label for="message">Message</label>
               </div>
               <div class="d-grid">
-                <button class="btn btn-lg" type="submit" style="color: #ffffff; background-color: #00754A">Send Message</button>
+                <p>
+                  <?php
+                  if(isset($_POST['sendMessage'])){
+                    echo $message;
+                  }
+                ?></p>
+                <button class="btn btn-lg" type="submit" name="sendMessage" style="color: #ffffff; background-color: #00754A">Send Message</button>
               </div>
             </form>
           </div>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include ("../backend/processLogin.php");
 ?>
 <!DOCTYPE html>

@@ -1,7 +1,17 @@
+<?php
+session_start();
+if($_SERVER["REQUEST_METHOD"] == "POST"){
+  include("../backend/logout.php");
+}
+
+?>
 <style>
   .header-nav{
      font-family: Helvetica, Arial, sans-serif;
     color: #000000;
+  }
+  .login-button{
+    color: #ffffff;
   }
   .profile{
     color: #ffffff;
@@ -11,11 +21,6 @@
     color: #ffffff;
     background-color: #00754A;
   }
-@media screen and (max-width: 992px) {
-  .profile{
-  
-  }
-}
 </style>
 <nav class="navbar navbar-expand-lg bg-white sticky-top">
   <div class="container-fluid">
@@ -38,14 +43,28 @@
     </li>
   </ul>
 
+  <?php if(isset($_SESSION['user'])): ?>
+
   <div class="dropdown navbar-nav ms-auto">
-  <button class="btn dropdown-toggle profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Michael
-  </button>
-  <ul class="dropdown-menu ">
-    <li><a class="dropdown-item" href="../pages/login.php">Log Out</a></li>
-  </ul>
-</div>
+    <button class="btn dropdown-toggle profile" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      <?php echo $_SESSION['user']; ?>
+    </button>
+    <ul class="dropdown-menu">
+      <li>
+        <form method="POST">
+          <button class="btn btn-small" type="submit" name="logout">Logout</button>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <?php endif; ?>
+
+  <?php if(!isset($_SESSION['user'])): ?>
+  <div class="navbar-nav ms-auto">
+    <a href="../pages/login.php" class="text-decoration-none nav-link login-button border fw-bold rounded bg-success text white">Log in</a>
+  </div>
+  
+  <?php endif; ?>
 
 </div>
 
