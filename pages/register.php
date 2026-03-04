@@ -17,7 +17,6 @@ include("../backend/processRegistration.php");
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center;
-      min-height: 100vh;
       margin: 0;
     }
 
@@ -70,7 +69,7 @@ include("../backend/processRegistration.php");
         <img src="../img/logo.png" alt="" class="img-fluid" style="max-height: 60px; max-width: 40px;">
       </div>
       <h1 class="text-center">Create an Account</h1>
-      <form method="POST" class="needs-validation" novalidate>
+      <form method="POST">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" name="fullName" id="floatingInput" placeholder="name" required>
           <label for="floatingInput">Username</label>
@@ -101,12 +100,14 @@ include("../backend/processRegistration.php");
         </div>
         <div>
           <p class="text-danger mb-2"><?php
-          if(isset($_POST['register'])){
-            echo $message; 
-          }
-           ?></p>
+                                    if (isset($_POST['register'])) {
+                                      echo $message;
+                                    }
+                                    ?></p>
+      </div>
+
           <div class="d-flex justify-content-end">
-            <button type="submit" class="btn" name="register">Finish</button>
+            <button id="liveToastBtn" type="submit" class="btn" name="register">Finish</button>
           </div>
         </div>
       </form>
@@ -114,26 +115,32 @@ include("../backend/processRegistration.php");
     </div>
 
   </div>
+
+
+  <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true" id="liveToast" style="position: absolute; top: 20px; right: 20px;"> 
+    <div class="d-flex">
+      <div class="toast-body">
+        <p class="text-danger mb-2"><?php
+                                    if (isset($_POST['register'])) {
+                                      echo $message;
+                                    }
+                                    ?></p>
+      </div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+
   <?php include("../includes/jsBootstrap.php"); ?>
   <script>
-    (() => {
-      'use strict'
+    const toastTrigger = document.getElementById('liveToastBtn')
+    const toastLiveExample = document.getElementById('liveToast')
 
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      const forms = document.querySelectorAll('.needs-validation')
-
-      // Loop over them and prevent submission
-      Array.from(forms).forEach(form => {
-        form.addEventListener('submit', event => {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
+    if (toastTrigger) {
+      const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+      toastTrigger.addEventListener('click', () => {
+        toastBootstrap.show()
       })
-    })()
+    }
   </script>
 </body>
 
